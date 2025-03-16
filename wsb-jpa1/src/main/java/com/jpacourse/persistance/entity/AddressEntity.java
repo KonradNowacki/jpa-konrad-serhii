@@ -3,6 +3,8 @@ package com.jpacourse.persistance.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "ADDRESS")
 public class AddressEntity {
@@ -19,12 +21,31 @@ public class AddressEntity {
 
 	private String postalCode;
 
-	public Long getId() {
-		return id;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="DOCTOR_ID")
+	private DoctorEntity doctor;
+
+	@ManyToMany(mappedBy = "addresses")
+	private Set<PatientEntity> patients;
+
+	public Set<PatientEntity> getPatients() {
+		return patients;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPatients(Set<PatientEntity> patients) {
+		this.patients = patients;
+	}
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getCity() {

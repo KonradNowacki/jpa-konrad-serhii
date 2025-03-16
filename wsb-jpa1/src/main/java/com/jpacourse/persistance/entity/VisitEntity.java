@@ -1,6 +1,7 @@
 package com.jpacourse.persistance.entity;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -17,12 +18,20 @@ public class VisitEntity {
 	@Column(nullable = false)
 	private LocalDateTime time;
 
-	public Long getId() {
-		return id;
+	@OneToMany
+	@JoinColumn(name = "VISIT_ID")
+	private Set<MedicalTreatmentEntity> medicalTreatments;
+
+	public Set<MedicalTreatmentEntity> getMedicalTreatments() {
+		return medicalTreatments;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setMedicalTreatments(Set<MedicalTreatmentEntity> medicalTreatments) {
+		this.medicalTreatments = medicalTreatments;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getDescription() {

@@ -1,6 +1,7 @@
 package com.jpacourse.persistance.entity;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -29,12 +30,36 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
-	public Long getId() {
-		return id;
+	@OneToMany
+	@JoinColumn(name = "PATIENT_ID")
+	private Set<VisitEntity> visits;
+
+	@ManyToMany()
+	@JoinTable(
+		name = "PATIENTS_ADDRESSES",
+		joinColumns = @JoinColumn(name = "PATIENT_ID"),
+		inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID")
+	)
+	private Set<AddressEntity> addresses;
+
+	public Set<VisitEntity> getVisits() {
+		return visits;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setVisits(Set<VisitEntity> visits) {
+		this.visits = visits;
+	}
+
+	public Set<AddressEntity> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<AddressEntity> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getFirstName() {
