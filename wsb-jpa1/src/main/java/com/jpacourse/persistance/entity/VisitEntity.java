@@ -18,8 +18,7 @@ public class VisitEntity {
 	@Column(nullable = false)
 	private LocalDateTime time;
 
-	@OneToMany
-	@JoinColumn(name = "VISIT_ID")
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<MedicalTreatmentEntity> medicalTreatments;
 
 	public Set<MedicalTreatmentEntity> getMedicalTreatments() {
