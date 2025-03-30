@@ -3,6 +3,7 @@ package com.jpacourse.persistance.entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.jpacourse.persistance.enums.BloodType;
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +30,8 @@ public class PatientEntity {
 
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
+
+	private BloodType bloodType;
 
 	@OneToMany
 	@JoinColumn(name = "PATIENT_ID")
