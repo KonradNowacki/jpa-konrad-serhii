@@ -2,7 +2,6 @@ package com.jpacourse.mapper;
 
 import com.jpacourse.dto.MedicalTreatmentTO;
 import com.jpacourse.dto.VisitTO;
-import com.jpacourse.persistance.entity.MedicalTreatmentEntity;
 import com.jpacourse.persistance.entity.VisitEntity;
 
 import java.util.Set;
@@ -24,10 +23,12 @@ public class VisitMapper {
                 .collect(Collectors.toSet());
 
         visitTO.setTreatmentTypes(medicalTreatmentTOs);
+        visitTO.setDoctorName(visitEntity.getDoctor().getFirstName() + " " + visitEntity.getDoctor().getLastName());
 
         return visitTO;
     }
 
+    // TODO KN Remove if not needed
 //    public static VisitEntity mapToTO(VisitTO visitTO) {
 //        if (visitTO == null) {
 //            return null;

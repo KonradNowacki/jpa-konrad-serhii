@@ -21,6 +21,18 @@ public class VisitEntity {
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<MedicalTreatmentEntity> medicalTreatments;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private DoctorEntity doctor;
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
 	public Set<MedicalTreatmentEntity> getMedicalTreatments() {
 		return medicalTreatments;
 	}

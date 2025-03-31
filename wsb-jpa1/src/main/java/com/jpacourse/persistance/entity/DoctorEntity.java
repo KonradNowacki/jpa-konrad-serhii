@@ -32,8 +32,7 @@ public class DoctorEntity {
 	@Enumerated(EnumType.STRING)
 	private Specialization specialization;
 
-	@OneToMany
-	@JoinColumn(name = "DOCTOR_ID")
+	@OneToMany(mappedBy = "doctor")
 	private Set<VisitEntity> visits;
 
 	public Set<VisitEntity> getVisits() {
