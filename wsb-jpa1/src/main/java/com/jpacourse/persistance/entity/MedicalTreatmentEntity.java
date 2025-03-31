@@ -30,6 +30,10 @@ public class MedicalTreatmentEntity {
 		this.visit = visit;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

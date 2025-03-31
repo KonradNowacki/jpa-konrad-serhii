@@ -45,6 +45,14 @@ public class PatientEntity {
 	)
 	private Set<AddressEntity> addresses;
 
+	public BloodType getBloodType() {
+		return bloodType;
+	}
+
+	public void setBloodType(BloodType bloodType) {
+		this.bloodType = bloodType;
+	}
+
 	public Set<VisitEntity> getVisits() {
 		return visits;
 	}
