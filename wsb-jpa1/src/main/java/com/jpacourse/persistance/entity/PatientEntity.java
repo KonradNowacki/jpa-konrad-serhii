@@ -31,9 +31,10 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
+	@Transient
 	private BloodType bloodType;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "PATIENT_ID")
 	private Set<VisitEntity> visits;
 

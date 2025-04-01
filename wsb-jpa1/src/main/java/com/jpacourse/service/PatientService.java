@@ -8,4 +8,5 @@ public interface PatientService {
 
     Set<PatientTO> getAll();
     PatientTO getById(Long id);
+    void removeById(Long id);
 }

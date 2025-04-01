@@ -13,12 +13,13 @@ public class VisitEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	private String description;
 
 	@Column(nullable = false)
 	private LocalDateTime time;
 
-	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.REMOVE)
 	private Set<MedicalTreatmentEntity> medicalTreatments;
 
 	@ManyToOne(fetch = FetchType.LAZY)

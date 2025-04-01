@@ -34,4 +34,9 @@ public class PatientServiceImpl implements PatientService {
     public PatientTO getById(Long id) {
         return PatientMapper.mapToTO(patientDao.findOne(id));
     }
+
+    @Override
+    public void removeById(Long id) {
+        patientDao.delete(id);
+    }
 }
