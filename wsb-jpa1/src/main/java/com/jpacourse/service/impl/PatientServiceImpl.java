@@ -1,7 +1,9 @@
 package com.jpacourse.service.impl;
 
 import com.jpacourse.dto.PatientTO;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.mapper.PatientMapper;
+import com.jpacourse.mapper.VisitMapper;
 import com.jpacourse.persistance.dao.PatientDao;
 import com.jpacourse.service.PatientService;
 
@@ -42,16 +44,17 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public Set<VisitTO> getVisitsByPatientsId(Long id) {
+        return patientDao.findOne(id).getVisits().stream()
+                .map(VisitMapper::mapToTO)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public Set<PatientTO> getPatientsByLastName(String lastName) {
         return patientDao.findAllByLastname(lastName).stream()
                 .map(PatientMapper::mapToTO)
                 .collect(Collectors.toSet());
     }
-
-//    @Override
-//    public Set<VisitTO> getVisitsByPatientsID(Long id) {
-//        return patientDao
-//    }
-
 
 }

@@ -36,9 +36,9 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientsByLastName(lastName));
     }
 
-//    @GetMapping("/{id}/visits")
-//    public ResponseEntity<Set<VisitTO>> getVisitsByPatientsID(@PathVariable Long id) {
-//        return ResponseEntity.ok(patientService.getVisitsByPatientsID(id));
-//    }
+    @GetMapping("/{id}/visits")
+    public ResponseEntity<Set<VisitTO>> getVisitsByPatientsID(@PathVariable Long id) {
+        return ResponseEntity.ok(patientService.getVisitsByPatientsId(id));
+    }
 
 }

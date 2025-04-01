@@ -2,8 +2,6 @@ package com.jpacourse.service;
 
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
-import com.jpacourse.persistance.entity.PatientEntity;
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
 
@@ -14,5 +12,5 @@ public interface PatientService {
     Set<PatientTO> getPatientsByLastName(String lastName);
 
     void removeById(Long id);
-//    Set<VisitTO> getVisitsByPatientsId(Long id);
+    Set<VisitTO> getVisitsByPatientsId(Long id);
 }
