@@ -1,6 +1,7 @@
 package com.jpacourse.rest;
 
 import com.jpacourse.dto.PatientTO;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.service.impl.PatientServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +30,15 @@ public class PatientController {
     public ResponseEntity<PatientTO> getPatientById(@PathVariable Long id) {
         return ResponseEntity.ok(patientService.getById(id));
     }
+
+    @GetMapping("/lastname/{lastName}")
+    public ResponseEntity<Set<PatientTO>> getPatientsByLastName(@PathVariable String lastName) {
+        return ResponseEntity.ok(patientService.getPatientsByLastName(lastName));
+    }
+
+//    @GetMapping("/{id}/visits")
+//    public ResponseEntity<Set<VisitTO>> getVisitsByPatientsID(@PathVariable Long id) {
+//        return ResponseEntity.ok(patientService.getVisitsByPatientsID(id));
+//    }
 
 }

@@ -5,6 +5,7 @@ import com.jpacourse.mapper.PatientMapper;
 import com.jpacourse.persistance.dao.PatientDao;
 import com.jpacourse.service.PatientService;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,4 +40,18 @@ public class PatientServiceImpl implements PatientService {
     public void removeById(Long id) {
         patientDao.delete(id);
     }
+
+    @Override
+    public Set<PatientTO> getPatientsByLastName(String lastName) {
+        return patientDao.findAllByLastname(lastName).stream()
+                .map(PatientMapper::mapToTO)
+                .collect(Collectors.toSet());
+    }
+
+//    @Override
+//    public Set<VisitTO> getVisitsByPatientsID(Long id) {
+//        return patientDao
+//    }
+
+
 }
