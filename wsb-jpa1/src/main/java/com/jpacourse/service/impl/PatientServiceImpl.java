@@ -53,7 +53,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Set<VisitTO> getVisitsByPatientsId(Long id) {
-        // Czy nie mało wydajne?
         return patientDao.findOne(id).getVisits().stream()
                 .map(VisitMapper::mapToTO)
                 .collect(Collectors.toCollection(HashSet::new));
