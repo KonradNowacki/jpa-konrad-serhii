@@ -1,15 +1,18 @@
 package com.jpacourse.service.impl;
 
 import com.jpacourse.dto.PatientTO;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.mapper.PatientMapper;
+import com.jpacourse.mapper.VisitMapper;
 import com.jpacourse.persistance.dao.PatientDao;
+import com.jpacourse.persistance.enums.BloodType;
 import com.jpacourse.service.PatientService;
 
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,7 +31,7 @@ public class PatientServiceImpl implements PatientService {
     public Set<PatientTO> getAll() {
         return patientDao.findAll().stream()
                 .map(PatientMapper::mapToTO)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     @Override
@@ -45,13 +48,31 @@ public class PatientServiceImpl implements PatientService {
     public Set<PatientTO> getPatientsByLastName(String lastName) {
         return patientDao.findAllByLastname(lastName).stream()
                 .map(PatientMapper::mapToTO)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
-//    @Override
-//    public Set<VisitTO> getVisitsByPatientsID(Long id) {
-//        return patientDao
-//    }
+    @Override
+    public Set<VisitTO> getVisitsByPatientsId(Long id) {
+        // Czy nie mało wydajne?
+        return patientDao.findOne(id).getVisits().stream()
+                .map(VisitMapper::mapToTO)
+                .collect(Collectors.toCollection(HashSet::new));
+    }
 
+    @Override
+    public Set<PatientTO> getPatientsWithMoreThanXVisits(int noOfVisits) {
+        return patientDao.findAll().stream()
+            .filter(patient -> patient.getVisits().size() > noOfVisits)
+            .map(PatientMapper::mapToTO)
+            .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    @Override
+    public Set<PatientTO> getPatientsByAnyOfBloodtype(Set<BloodType> bloodTypes) {
+        return patientDao.findAll().stream()
+            .filter(patient -> bloodTypes.contains(patient.getBloodType()))
+            .map(PatientMapper::mapToTO)
+            .collect(Collectors.toCollection(HashSet::new));
+    }
 
 }

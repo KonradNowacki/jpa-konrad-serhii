@@ -62,20 +62,45 @@ insert into address (id, address_line1, address_line2, city, postal_code)
 values (910, 'ul. Sienkiewicza 4', 'apartament 6', 'Katowice', '40-001');
 
 -- Visits
+-- 1 wizyta dla patient_id 1
 insert into visit (doctor_id, id, patient_id, time, description)
 values (1, 1, 1, '2025-03-17 09:00:00', 'Konsultacja kontrolna');
 
+-- 2 wizyty dla patient_id 2
 insert into visit (doctor_id, id, patient_id, time, description)
 values (2, 2, 2, '2025-03-17 10:30:00', 'Wizyta diagnostyczna');
-
 insert into visit (doctor_id, id, patient_id, time, description)
-values (3, 3, 3, '2025-03-17 11:45:00', 'Konsultacja ortopedyczna');
+values (3, 3, 2, '2025-03-18 09:00:00', 'Kontrola po badaniach');
 
+-- 3 wizyty dla patient_id 3
 insert into visit (doctor_id, id, patient_id, time, description)
-values (4, 4, 4, '2025-03-17 13:15:00', 'Wizyta pediatryczna');
+values (4, 4, 3, '2025-03-17 11:45:00', 'Konsultacja ortopedyczna');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (5, 5, 3, '2025-03-18 13:00:00', 'Wizyta rehabilitacyjna');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (5, 6, 3, '2025-03-19 10:00:00', 'Konsultacja końcowa');
 
+-- 4 wizyty dla patient_id 4
 insert into visit (doctor_id, id, patient_id, time, description)
-values (5, 5, 5, '2025-03-17 15:00:00', 'Kontrola dermatologiczna');
+values (1, 7, 4, '2025-03-17 13:15:00', 'Wizyta pediatryczna');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (4, 8, 4, '2025-03-18 09:30:00', 'Szczepienie');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (5, 9, 4, '2025-03-19 12:00:00', 'Kontrola stanu zdrowia');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (5, 10, 4, '2025-03-20 11:00:00', 'Konsultacja żywieniowa');
+
+-- 5 wizyt dla patient_id 5
+insert into visit (doctor_id, id, patient_id, time, description)
+values (4, 11, 5, '2025-03-17 15:00:00', 'Kontrola dermatologiczna');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (2, 12, 5, '2025-03-18 14:00:00', 'Konsultacja alergologiczna');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (3, 13, 5, '2025-03-19 16:00:00', 'Konsultacja kontrolna');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (3, 14, 5, '2025-03-20 10:30:00', 'Wizyta kontrolna po leczeniu');
+insert into visit (doctor_id, id, patient_id, time, description)
+values (2, 15, 5, '2025-03-21 09:00:00', 'Konsultacja końcowa');
 
 -- Medical treatments
 insert into medical_treatment (id, visit_id, description, type)
