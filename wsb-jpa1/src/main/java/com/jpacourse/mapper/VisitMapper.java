@@ -2,8 +2,10 @@ package com.jpacourse.mapper;
 
 import com.jpacourse.dto.MedicalTreatmentTO;
 import com.jpacourse.dto.VisitTO;
+import com.jpacourse.persistance.entity.MedicalTreatmentEntity;
 import com.jpacourse.persistance.entity.VisitEntity;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,20 +30,24 @@ public class VisitMapper {
         return visitTO;
     }
 
-    // TODO KN Remove if not needed
-//    public static VisitEntity mapToTO(VisitTO visitTO) {
-//        if (visitTO == null) {
-//            return null;
-//        }
-//
-//        final VisitEntity visitEntity = new VisitEntity();
-//        visitEntity.setDescription(visitTO.getDescription());
-//        visitEntity.setTime(visitTO.getTime());
-//        visitEntity.setId(visitTO.getId());
-//
-//        final Set<MedicalTreatmentEntity> medicalTreatmentEntities = visitTO.
-//
-//        return visitEntity;
-//    }
+    public static VisitEntity mapToEntity(VisitTO visitTO) {
+        if (visitTO == null) {
+            return null;
+        }
+
+        final VisitEntity visitEntity = new VisitEntity();
+        visitEntity.setDescription(visitTO.getDescription());
+        visitEntity.setTime(visitTO.getTime());
+        visitEntity.setId(visitTO.getId());
+
+        final Set<MedicalTreatmentEntity> medicalTreatmentEntities = visitTO.getTreatmentType()
+                .stream()
+                .map(MedicalTreatmentMapper::mapToEntity)
+                .collect(Collectors.toCollection(HashSet::new));
+
+        visitEntity.setMedicalTreatments(medicalTreatmentEntities);
+
+        return visitEntity;
+    }
 
 }

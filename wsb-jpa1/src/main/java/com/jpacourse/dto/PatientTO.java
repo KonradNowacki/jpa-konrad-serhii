@@ -74,7 +74,7 @@ public class PatientTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Set<VisitTO> getPastVisits() {
+    public Set<VisitTO> getVisits() {
         return pastVisits;
     }
 

@@ -15,20 +15,20 @@ insert into doctor (id, doctor_number, email, first_name, last_name, telephone_n
 values (5, 'DOC005', 'katarzyna.adamska@example.com', 'Katarzyna', 'Adamska', '333444555', 'Dermatologia');
 
 -- Patients
-insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number)
-values ('1985-05-15', 1, 'adam.nowak@example.com', 'Adam', 'Nowak', 'PAT001', '123456789');
+insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number, blood_type)
+values ('1985-05-15', 1, 'adam.nowak@example.com', 'Adam', 'Nowak', 'PAT001', '123456789', 'A_POSITIVE');
 
-insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number)
-values ('1990-07-20', 2, 'beata.kowalska@example.com', 'Beata', 'Kowalska', 'PAT002', '987654321');
+insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number, blood_type)
+values ('1990-07-20', 2, 'beata.kowalska@example.com', 'Beata', 'Kowalska', 'PAT002', '987654321', 'B_NEGATIVE');
 
-insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number)
-values ('1978-02-10', 3, 'carl.martin@example.com', 'Carl', 'Martin', 'PAT003', '555666777');
+insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number, blood_type)
+values ('1978-02-10', 3, 'carl.martin@example.com', 'Carl', 'Martin', 'PAT003', '555666777', 'AB_NEGATIVE');
 
-insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number)
-values ('2000-11-30', 4, 'diana.zieminska@example.com', 'Diana', 'Ziemińska', 'PAT004', '444555666');
+insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number, blood_type)
+values ('2000-11-30', 4, 'diana.zieminska@example.com', 'Diana', 'Ziemińska', 'PAT004', '444555666', 'A_POSITIVE');
 
-insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number)
-values ('1995-09-05', 5, 'ewa.nowicka@example.com', 'Ewa', 'Nowicka', 'PAT005', '333444555');
+insert into patient (date_of_birth, id, email, first_name, last_name, patient_number, telephone_number, blood_type)
+values ('1995-09-05', 5, 'ewa.nowicka@example.com', 'Ewa', 'Nowicka', 'PAT005', '333444555', 'ZERO_POSITIVE');
 
 -- Addresses
 insert into address (id, address_line1, address_line2, city, postal_code, doctor_id)

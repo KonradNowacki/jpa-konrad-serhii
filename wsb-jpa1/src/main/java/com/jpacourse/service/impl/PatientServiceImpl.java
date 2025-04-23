@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +37,14 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientTO getById(Long id) {
-        return PatientMapper.mapToTO(patientDao.findOne(id));
+        final PatientTO patient = PatientMapper.mapToTO(patientDao.findOne(id));
+
+        final Set<VisitTO> pastVisits = patient.getVisits().stream()
+                .filter(visit -> visit.getTime().isBefore(LocalDateTime.now()))
+                .collect(Collectors.toCollection(HashSet::new));
+
+        patient.setPastVisits(pastVisits);
+        return patient;
     }
 
     @Override
@@ -52,6 +60,13 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public Set<PatientTO> getPatientsWithMoreThanXVisits(int noOfVisits) {
+        return patientDao.getPatientsWithMoreThanXVisits(noOfVisits).stream()
+                .map(PatientMapper::mapToTO)
+                .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    @Override
     public Set<VisitTO> getVisitsByPatientsId(Long id) {
         return patientDao.findOne(id).getVisits().stream()
                 .map(VisitMapper::mapToTO)
@@ -59,17 +74,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Set<PatientTO> getPatientsWithMoreThanXVisits(int noOfVisits) {
-        return patientDao.findAll().stream()
-            .filter(patient -> patient.getVisits().size() > noOfVisits)
-            .map(PatientMapper::mapToTO)
-            .collect(Collectors.toCollection(HashSet::new));
-    }
-
-    @Override
     public Set<PatientTO> getPatientsByAnyOfBloodtype(Set<BloodType> bloodTypes) {
-        return patientDao.findAll().stream()
-            .filter(patient -> bloodTypes.contains(patient.getBloodType()))
+        return patientDao.getPatientsHavingOneOfBloodTypes(bloodTypes).stream()
             .map(PatientMapper::mapToTO)
             .collect(Collectors.toCollection(HashSet::new));
     }

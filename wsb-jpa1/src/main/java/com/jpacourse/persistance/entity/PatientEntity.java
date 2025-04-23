@@ -31,7 +31,8 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
-	@Transient
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private BloodType bloodType;
 
 	@OneToMany(cascade = CascadeType.REMOVE)

@@ -3,9 +3,8 @@ package com.jpacourse.mapper;
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistance.entity.PatientEntity;
+import com.jpacourse.persistance.entity.VisitEntity;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,6 @@ public final class PatientMapper {
         patientTO.setBloodType(patientEntity.getBloodType());
 
         final Set<VisitTO> pastVisits = patientEntity.getVisits().stream()
-                        .filter(visitEntity -> visitEntity.getTime().isBefore(LocalDateTime.now()))
                         .map(VisitMapper::mapToTO)
                         .collect(Collectors.toSet());
 
@@ -52,7 +50,11 @@ public final class PatientMapper {
         patientEntity.setPatientNumber(patientTO.getPatientNumber());
         patientEntity.setBloodType(patientTO.getBloodType());
 
-//        patientEntity.setVisits(patientTO.getPastVisits());
+        final Set<VisitEntity> visits = patientTO.getVisits().stream()
+                        .map(VisitMapper::mapToEntity)
+                        .collect(Collectors.toSet());
+
+        patientEntity.setVisits(visits);
 
         return patientEntity;
 

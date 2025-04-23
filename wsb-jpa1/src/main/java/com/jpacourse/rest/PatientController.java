@@ -4,8 +4,6 @@ import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistance.enums.BloodType;
 import com.jpacourse.service.PatientService;
-import com.jpacourse.service.impl.PatientServiceImpl;
-import jakarta.validation.constraints.Min;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +50,7 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientsWithMoreThanXVisits(noOfVisits));
     }
 
-    // Lista 3 zapytanie 3
+    // Lista 3 zapytanie 4
     @GetMapping("/has-bloodtype/{bloodtype}")
     public ResponseEntity<Set<PatientTO>> getPatientsByAnyOfBloodtype(@PathVariable Set<BloodType> bloodtype) {
         return ResponseEntity.ok(patientService.getPatientsByAnyOfBloodtype(bloodtype));

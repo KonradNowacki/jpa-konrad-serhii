@@ -20,7 +20,7 @@ public class MedicalTreatmentMapper {
 
     }
 
-    public static MedicalTreatmentEntity mapToTO(MedicalTreatmentTO medicalTreatmentTO) {
+    public static MedicalTreatmentEntity mapToEntity(MedicalTreatmentTO medicalTreatmentTO) {
         if (medicalTreatmentTO == null) {
             return null;
         }

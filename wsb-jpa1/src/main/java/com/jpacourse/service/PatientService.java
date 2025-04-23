@@ -2,9 +2,7 @@ package com.jpacourse.service;
 
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
-import com.jpacourse.persistance.entity.PatientEntity;
 import com.jpacourse.persistance.enums.BloodType;
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
 
