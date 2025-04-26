@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,12 +46,8 @@ public class PatientServiceImpl implements PatientService {
         }
 
         final PatientTO patientTO = PatientMapper.mapToTO(patientEntity);
+        patientTO.setPastVisits(getPastVisits(patientTO));
 
-        final Set<VisitTO> pastVisits = patientTO.getVisits().stream()
-                .filter(visit -> visit.getTime().isBefore(LocalDateTime.now()))
-                .collect(Collectors.toCollection(HashSet::new));
-
-        patientTO.setPastVisits(pastVisits);
         return patientTO;
     }
 
@@ -63,6 +60,7 @@ public class PatientServiceImpl implements PatientService {
     public Set<PatientTO> getPatientsByLastName(String lastName) {
         return patientDao.findAllByLastname(lastName).stream()
                 .map(PatientMapper::mapToTO)
+                .peek(this::getPastVisits)
                 .collect(Collectors.toCollection(HashSet::new));
     }
 
@@ -70,6 +68,7 @@ public class PatientServiceImpl implements PatientService {
     public Set<PatientTO> getPatientsWithMoreThanXVisits(int noOfVisits) {
         return patientDao.getPatientsWithMoreThanXVisits(noOfVisits).stream()
                 .map(PatientMapper::mapToTO)
+                .peek(this::getPastVisits)
                 .collect(Collectors.toCollection(HashSet::new));
     }
 
@@ -84,7 +83,15 @@ public class PatientServiceImpl implements PatientService {
     public Set<PatientTO> getPatientsByAnyOfBloodtype(Set<BloodType> bloodTypes) {
         return patientDao.getPatientsHavingOneOfBloodTypes(bloodTypes).stream()
             .map(PatientMapper::mapToTO)
+            .peek(this::getPastVisits)
             .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    private Set<VisitTO> getPastVisits(PatientTO patientTO) {
+        final Predicate<VisitTO> isVisitPast = visit -> visit.getTime().isBefore(LocalDateTime.now());
+
+        return patientTO.getVisits().stream().filter(isVisitPast)
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
 }

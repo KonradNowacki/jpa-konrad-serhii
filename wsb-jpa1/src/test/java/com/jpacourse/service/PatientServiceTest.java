@@ -1,5 +1,6 @@
 package com.jpacourse.service;
 
+import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistance.dao.DoctorDao;
 import com.jpacourse.persistance.dao.VisitDao;
@@ -39,6 +40,17 @@ public class PatientServiceTest {
         assertThat(removedPatient).isNull();
         assertThat(visitDao.findAll().size()).isEqualTo(14);
         assertThat(doctorDao.findAll().size()).isEqualTo(5);
+    }
+
+    @Transactional
+    @Test
+    public void shouldReturnTOs_whenGettingPatientById() {
+        // when
+        var patient = patientService.getById(1L);
+
+        // then
+        assertThat(patient).isInstanceOf(PatientTO.class);
+        assertThat(patient.getVisits().stream().findFirst().get()).isInstanceOf(VisitTO.class);
     }
 
     @Transactional
