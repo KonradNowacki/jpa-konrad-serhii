@@ -42,7 +42,6 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<PatientEntity> query = cb.createQuery(PatientEntity.class);
         Root<PatientEntity> root = query.from(PatientEntity.class);
-//        Join<Object, Object> visitJoin = root.join("visits");
 
         Predicate bloodTypePredicate = root.get("bloodType").in(bloodTypes);
         query.select(root).where(bloodTypePredicate);

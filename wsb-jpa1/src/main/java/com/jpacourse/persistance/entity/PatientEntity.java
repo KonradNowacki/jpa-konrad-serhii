@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.jpacourse.persistance.enums.BloodType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "PATIENT")
@@ -35,7 +37,8 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private BloodType bloodType;
 
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@Fetch(FetchMode.JOIN)
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PATIENT_ID")
 	private Set<VisitEntity> visits;
 

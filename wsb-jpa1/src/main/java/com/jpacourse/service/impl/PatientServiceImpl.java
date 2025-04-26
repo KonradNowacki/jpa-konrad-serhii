@@ -5,6 +5,7 @@ import com.jpacourse.dto.VisitTO;
 import com.jpacourse.mapper.PatientMapper;
 import com.jpacourse.mapper.VisitMapper;
 import com.jpacourse.persistance.dao.PatientDao;
+import com.jpacourse.persistance.entity.PatientEntity;
 import com.jpacourse.persistance.enums.BloodType;
 import com.jpacourse.service.PatientService;
 
@@ -37,14 +38,20 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientTO getById(Long id) {
-        final PatientTO patient = PatientMapper.mapToTO(patientDao.findOne(id));
+        final PatientEntity patientEntity = patientDao.findOne(id);
 
-        final Set<VisitTO> pastVisits = patient.getVisits().stream()
+        if (patientEntity == null) {
+            return null;
+        }
+
+        final PatientTO patientTO = PatientMapper.mapToTO(patientEntity);
+
+        final Set<VisitTO> pastVisits = patientTO.getVisits().stream()
                 .filter(visit -> visit.getTime().isBefore(LocalDateTime.now()))
                 .collect(Collectors.toCollection(HashSet::new));
 
-        patient.setPastVisits(pastVisits);
-        return patient;
+        patientTO.setPastVisits(pastVisits);
+        return patientTO;
     }
 
     @Override

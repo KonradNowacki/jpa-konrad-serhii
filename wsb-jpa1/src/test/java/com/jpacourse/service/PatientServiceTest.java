@@ -28,7 +28,7 @@ public class PatientServiceTest {
     @Transactional
     public void testDeletePatient_shouldCascadeDeleteVisitsAndLeaveDoctors() {
         // given
-        assertThat(visitDao.findAll().size()).isEqualTo(5);
+        assertThat(visitDao.findAll().size()).isEqualTo(15);
         assertThat(doctorDao.findAll().size()).isEqualTo(5);
 
         // when
@@ -37,7 +37,7 @@ public class PatientServiceTest {
 
         // then
         assertThat(removedPatient).isNull();
-        assertThat(visitDao.findAll().size()).isEqualTo(4);
+        assertThat(visitDao.findAll().size()).isEqualTo(14);
         assertThat(doctorDao.findAll().size()).isEqualTo(5);
     }
 
